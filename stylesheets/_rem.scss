@@ -1,0 +1,19 @@
+$rem-baseline: 10px !default;
+
+@function rem($values) {
+  $rem: unquote("");
+  @each $value in $values {
+    @if type-of($value) == "number" and unit($value) == "px" {
+      $rem: append($rem, $value / ($rem-baseline / 1rem));
+    } @else {
+      $rem: append($rem, $value);
+    }
+  }
+  @return $rem;
+}
+
+@mixin rem($property, $values, $important: false) {
+  $important: if($important, " !important", null);
+  #{$property}: append($values, $important);
+  #{$property}: append(rem($values), $important);
+}
