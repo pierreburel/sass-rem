@@ -18,7 +18,6 @@ Just import `_rem.scss` and use the `rem` mixin or function :
     h1 {
       @include rem(font-size, 24px);
       @include rem(margin, 24px auto);
-      @include rem(width, 400px);
       border-bottom: 1px solid black;
       border-bottom-width: rem(1px);
     }
@@ -34,8 +33,6 @@ That will output :
       font-size: 2.4rem;
       margin: 24px auto;
       margin: 2.4rem auto;
-      width: 400px;
-      width: 40rem;
       border-bottom: 1px solid black;
       border-bottom: 0.1rem;
     }
