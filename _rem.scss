@@ -12,8 +12,7 @@ $rem-baseline: 10px !default;
   @return $rem;
 }
 
-@mixin rem($property, $values, $important: false) {
-  $important: if($important, unquote(" !important"), null);
-  #{$property}: append($values, $important);
-  #{$property}: append(rem($values), $important);
+@mixin rem($property, $values) {
+  #{$property}: $values;
+  #{$property}: rem($values);
 }
