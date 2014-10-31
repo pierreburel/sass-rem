@@ -1,18 +1,30 @@
 $rem-baseline: 10px !default;
+$rem-fallback: true !default;
 
 @function rem($values) {
   $rem: ();
+  $separator: if(type-of($values) == "arglist", comma, space);
   @each $value in $values {
     @if type-of($value) == "number" and unit($value) == "px" {
-      $rem: append($rem, $value / ($rem-baseline / 1rem));
+      $rem: append($rem, $value / ($rem-baseline / 1rem), $separator);
+    } @else if type-of($value) == "list" {
+      $rem: append($rem, rem($value), comma);
     } @else {
-      $rem: append($rem, $value);
+      $rem: append($rem, $value, $separator);
     }
   }
   @return $rem;
 }
 
-@mixin rem($property, $values) {
-  #{$property}: $values;
-  #{$property}: rem($values);
+@mixin rem($properties, $values...) {
+  @each $property in $properties {
+    @if type-of($property) == "list" {
+      $values: nth($property, 2);
+      $property: nth($property, 1);
+    }
+    @if $rem-fallback {
+      #{$property}: $values;
+    }
+    #{$property}: rem($values);
+  }
 }
