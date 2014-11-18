@@ -17,14 +17,16 @@ $rem-fallback: true !default;
 }
 
 @mixin rem($properties, $values...) {
-  @each $property in $properties {
-    @if type-of($property) == "list" {
-      $values: nth($property, 2);
-      $property: nth($property, 1);
+  @if type-of($properties) == "map" {
+    @each $property in map-keys($properties) {
+      @include rem($property, map-get($properties, $property));
     }
-    @if $rem-fallback {
-      #{$property}: $values;
+  } @else {
+    @each $property in $properties {
+      @if $rem-fallback {
+        #{$property}: $values;
+      }
+      #{$property}: rem($values);
     }
-    #{$property}: rem($values);
   }
 }
