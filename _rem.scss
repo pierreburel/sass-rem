@@ -1,14 +1,28 @@
 $rem-baseline: 10px !default;
 $rem-fallback: true !default;
 
-@function rem($values) {
+// list-separator polyfill by Hugo Giraudel (https://sass-compatibility.github.io/#list_separator_function)
+@function rem-separator($list) {
+  @if function-exists("list-separator") == true {
+    @return list-separator($list);
+  }
+
+  $test-list: ();
+  @each $item in $list {
+    $test-list: append($test-list, $item, space);
+  }
+
+  @return if($test-list == $list, space, comma);
+}
+
+@function rem($values...) {
   $rem: ();
-  $separator: if(type-of($values) == "arglist", comma, space);
+  $separator: rem-separator($values);
   @each $value in $values {
     @if type-of($value) == "number" and unit($value) == "px" {
       $rem: append($rem, $value / ($rem-baseline / 1rem), $separator);
     } @else if type-of($value) == "list" {
-      $rem: append($rem, rem($value), comma);
+      $rem: append($rem, rem($value...), $separator);
     } @else {
       $rem: append($rem, $value, $separator);
     }
@@ -26,7 +40,7 @@ $rem-fallback: true !default;
       @if $rem-fallback {
         #{$property}: $values;
       }
-      #{$property}: rem($values);
+      #{$property}: rem($values...);
     }
   }
 }

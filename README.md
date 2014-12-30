@@ -18,7 +18,7 @@ Import `_rem.scss` and use the `rem` mixin or function :
     h1 {
       @include rem(border-bottom, 1px solid black);
       @include rem(font-size, 24px);
-      @include rem(text-shadow, 1px 1px #eee, -1px -1px #eee);
+      text-shadow: rem(1px 1px #eee, -1px -1px #eee); // No fallback
       @include rem((
         margin: 20px 0,
         padding: 10px
@@ -36,7 +36,6 @@ That will output :
       border-bottom: 0.1rem solid black;
       font-size: 24px;
       font-size: 2.4rem;
-      text-shadow: 1px 1px #eee, -1px -1px #eee;
       text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee;
       margin: 20px 0;
       margin: 2rem 0;
