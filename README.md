@@ -1,7 +1,8 @@
 # Rem
 
-Sass mixin and function to use rem units with pixel fallback
+Sass mixin and function to use rem units with pixel fallback  
 
+Demo : http://sassmeister.com/gist/f75f0ffd0910a99eee77
 
 ---
 
