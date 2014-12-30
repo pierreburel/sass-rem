@@ -1,5 +1,6 @@
 $rem-baseline: 10px !default;
 $rem-fallback: true !default;
+$rem-px-only: false !default;
 
 // list-separator polyfill by Hugo Giraudel (https://sass-compatibility.github.io/#list_separator_function)
 @function rem-separator($list) {
@@ -16,6 +17,9 @@ $rem-fallback: true !default;
 }
 
 @function rem($values...) {
+  @if $rem-px-only {
+    @return $values;
+  }
   $rem: ();
   $separator: rem-separator($values);
   @each $value in $values {
@@ -37,10 +41,12 @@ $rem-fallback: true !default;
     }
   } @else {
     @each $property in $properties {
-      @if $rem-fallback {
+      @if $rem-fallback or $rem-px-only {
         #{$property}: $values;
       }
-      #{$property}: rem($values...);
+      @if not $rem-px-only {
+        #{$property}: rem($values...);
+      }
     }
   }
 }
