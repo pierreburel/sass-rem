@@ -6,6 +6,16 @@ Demo : http://sassmeister.com/gist/f75f0ffd0910a99eee77
 
 ---
 
+## Install
+
+Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Bower](http://bower.io/): 
+
+```
+bower install sass-mq
+```
+
+---
+
 ## Usage
 
 Import `_rem.scss`, set the html font-size to 62.5% (depending of `$rem-baseline`) and use the `rem` mixin or function :
