@@ -27,9 +27,11 @@ Import `_rem.scss`, set the html font-size to 62.5% (depending of `$rem-baseline
     }
 
     h1 {
-      @include rem(border-bottom, 1px solid black);
-      @include rem(font-size, 24px);
-      text-shadow: rem(1px 1px #eee, -1px -1px #eee); // Warning: no fallback possible with rem function
+      @include rem(font-size, 24px); // Simple
+      @include rem(border-bottom, 1px solid black); // Shorthand
+      @include rem(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Multiple values
+      text-shadow: rem(1px 1px #eee, -1px -1px #eee); // Function and multiple values, warning: no fallback possible with rem function
+      // List support (Sass 3.3+)
       @include rem((
         margin: 20px 0,
         padding: 10px
@@ -43,10 +45,12 @@ That will output :
     }
 
     h1 {
-      border-bottom: 1px solid black;
-      border-bottom: 0.1rem solid black;
       font-size: 24px;
       font-size: 2.4rem;
+      border-bottom: 1px solid black;
+      border-bottom: 0.1rem solid black;
+      box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
+      box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
       text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee; // No fallback
       margin: 20px 0;
       margin: 2rem 0;
@@ -57,18 +61,20 @@ That will output :
 You can disable pixel fallback by setting `$rem-fallback` to `false` :
 
     h1 {
-      border-bottom: 0.1rem solid black;
       font-size: 2.4rem;
+      border-bottom: 0.1rem solid black;
+      box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
       text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee;
       margin: 2rem 0;
       padding: 1rem;
     }
 
-You can totally disable rem units by setting `$rem-px-only` to `true` (lt-ie9 only stylsheet for example) :
+You can totally disable rem units by setting `$rem-px-only` to `true` (lt-ie9 only stylesheet for example) :
 
     h1 {
-      border-bottom: 1px solid black;
       font-size: 24px;
+      border-bottom: 1px solid black;
+      box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
       text-shadow: 1px 1px #eee, -1px -1px #eee; // Fallback works there
       margin: 20px 0;
       padding: 10px;
