@@ -76,7 +76,7 @@ You can totally disable rem units by setting `$rem-px-only` to `true` (lt-ie9 on
     h1 {
       font-size: 24px;
       border-bottom: 1px solid black;
-      box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
+      box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
       text-shadow: 1px 1px #eee, -1px -1px #eee; // Fallback works here
       margin: 20px 0;
       padding: 10px;
