@@ -11,7 +11,7 @@ Demo : http://sassmeister.com/gist/f75f0ffd0910a99eee77
 Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Bower](http://bower.io/): 
 
 ```
-bower install sass-mq
+bower install sass-rem
 ```
 
 ---
