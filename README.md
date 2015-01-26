@@ -33,7 +33,7 @@ Import `_rem.scss`, set the html font-size to 62.5% (depending of `$rem-baseline
       @include rem(border-bottom, 1px solid black); // Shorthand
       @include rem(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Multiple values
       text-shadow: rem(1px 1px #eee, -1px -1px #eee); // Function and multiple values, warning: no fallback possible with rem function
-      // List support (Sass 3.3+)
+      // Map support (Sass 3.3+)
       @include rem((
         margin: 20px 0,
         padding: 10px
