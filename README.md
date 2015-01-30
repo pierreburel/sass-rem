@@ -35,7 +35,7 @@ Import `_rem.scss`, set the html font-size to 62.5% (depending of `$rem-baseline
       text-shadow: rem(1px 1px #eee, -1px -1px #eee); // Function and multiple values, warning: no fallback possible with rem function
       // Map support (Sass 3.3+)
       @include rem((
-        margin: 20px 0,
+        margin: 20px 1rem,
         padding: 10px
       ));
     }
@@ -54,8 +54,8 @@ That will output :
       box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
       box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
       text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee; // No fallback
-      margin: 20px 0;
-      margin: 2rem 0;
+      margin: 20px 10px;
+      margin: 2rem 1rem;
       padding: 10px;
       padding: 1rem;
     }
@@ -67,7 +67,7 @@ You can disable pixel fallback by setting `$rem-fallback` to `false` :
       border-bottom: 0.1rem solid black;
       box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
       text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee;
-      margin: 2rem 0;
+      margin: 2rem 1rem;
       padding: 1rem;
     }
 
@@ -78,6 +78,6 @@ You can totally disable rem units by setting `$rem-px-only` to `true` (lt-ie9 on
       border-bottom: 1px solid black;
       box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
       text-shadow: 1px 1px #eee, -1px -1px #eee; // Fallback works here
-      margin: 20px 0;
+      margin: 20px 10px;
       padding: 10px;
     }
