@@ -15,6 +15,7 @@
   ],
   "license": "MIT",
   "ignore": [
-    "**/.*"
+    "**/.*",
+    "sache.json"
   ]
 }
