@@ -19,6 +19,7 @@ $rem-px-only: false !default;
 @function rem-convert($to, $values...) {
   $result: ();
   $separator: rem-separator($values);
+
   @each $value in $values {
     @if type-of($value) == "number" and unit($value) == "rem" and $to == "px" {
       $result: append($result, $value / 1rem * $rem-baseline, $separator);
@@ -30,6 +31,7 @@ $rem-px-only: false !default;
       $result: append($result, $value, $separator);
     }
   }
+
   @return $result;
 }
 
@@ -43,8 +45,8 @@ $rem-px-only: false !default;
 
 @mixin rem($properties, $values...) {
   @if type-of($properties) == "map" {
-    @each $property in map-keys($properties) {
-      @include rem($property, map-get($properties, $property));
+    @each $property, $values in $properties {
+      @include rem($property, $values...);
     }
   } @else {
     @each $property in $properties {
