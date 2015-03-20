@@ -6,6 +6,8 @@ Demo: [Sassmeister](http://sassmeister.com/gist/f75f0ffd0910a99eee77) / [Codepen
 
 Compatibility: Sass 3.2+ (3.3+ for maps) and LibSass
 
+See also: https://github.com/pierreburel/sass-em
+
 ---
 
 ## Install
