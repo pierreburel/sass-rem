@@ -1,0 +1,21 @@
+{
+  "name": "sass-rem",
+  "version": "1.1.1",
+  "description": "Sass mixin and function to use rem units with pixel fallback.",
+  "keywords": [
+    "sass",
+    "rem",
+    "responsive",
+    "fallback"
+  ],
+  "homepage": "https://github.com/pierreburel/sass-rem",
+  "bugs": {
+    "url": "https://github.com/pierreburel/sass-rem/issues"
+  },
+  "license": "MIT",
+  "author": "Pierre Burel <pierre.burel@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pierreburel/sass-rem.git"
+  }
+}
