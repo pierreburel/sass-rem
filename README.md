@@ -12,23 +12,33 @@ See also: https://github.com/pierreburel/sass-em
 
 ## Install
 
-Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Bower](http://bower.io/): 
+Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Bower](http://bower.io/) or [npm](https://www.npmjs.com/):
+
+### Bower
 
 ```
 bower install sass-rem
+```
+
+### npm
+
+```
+npm install sass-rem
 ```
 
 ---
 
 ## Usage
 
-Import `_rem.scss`, set the html font-size to 62.5% (depending of `$rem-baseline`) and use the `rem` mixin or function :
+Import `_rem.scss`, set the root font-size with `rem-baseline` mixin and use the `rem` mixin or function.
+
+### SCSS
 
 ```scss
 @import "rem";
 
 html {
-  font-size: 62.5%;
+  @include rem-baseline;
 }
 
 h1 {
@@ -44,7 +54,7 @@ h1 {
 }
 ```
 
-That will output :
+### CSS
 
 ```css
 html {
@@ -66,7 +76,11 @@ h1 {
 }
 ```
 
-You can disable pixel fallback by setting `$rem-fallback` to `false` :
+---
+
+You can disable pixel fallback by setting `$rem-fallback` to `false`.
+
+### CSS
 
 ```css
 h1 {
@@ -79,7 +93,11 @@ h1 {
 }
 ```
 
-You can totally disable rem units by setting `$rem-px-only` to `true` (lt-ie9 only stylesheet for example) :
+---
+
+You can totally disable rem units by setting `$rem-px-only` to `true` (for a lt-ie9 only stylesheet for example).
+
+### CSS
 
 ```css
 h1 {
@@ -89,5 +107,89 @@ h1 {
   text-shadow: 1px 1px #eee, -1px -1px #eee; // Fallback works here
   margin: 20px 10px;
   padding: 10px;
+}
+```
+
+---
+
+## Changing baseline
+
+By default, sass-rem uses a 10px baseline (root font size to 62.5%) for readability reasons (10px = 1rem).
+You can change this value using the `$rem-baseline` variable.
+The `rem-baseline` mixin will adjust the root font size and `rem` function and mixin will calculate rem values and px fallbacks automatically.
+
+### SCSS
+
+```scss
+@import "rem";
+
+$rem-baseline: 16px;
+
+html {
+  @include rem-baseline; // Optional with 16px baseline
+}
+
+h1 {
+  @include rem((
+    font-size: 24px,
+    margin: 10px 1rem
+  ));
+}
+```
+
+### CSS
+
+```css
+html {
+  font-size: 100%;
+}
+
+h1 {
+  font-size: 24px;
+  font-size: 1.5rem;
+  margin: 10px 16px;
+  margin: 0.625rem 1rem;
+}
+```
+
+---
+
+You can also change the baseline zoom by passing the desired zoom to the `rem-baseline` mixin which will calculate it depending of `$rem-baseline`. Useful for creating responsive typography depending on viewport, especially with a different baseline than 16px.
+
+### SCSS
+
+```scss
+@import "rem";
+
+html {
+  @include rem-baseline; // Default to 100%
+
+  @media (max-width: 400px) {
+    @include rem-baseline(75%);
+  }
+
+  @media (min-width: 800px) {
+    @include rem-baseline(125%);
+  }
+}
+```
+
+### CSS
+
+```css
+html {
+  font-size: 62.5%;
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 46.875%;
+  }
+}
+
+@media (min-width: 800px) {
+  html {
+    font-size: 78.125%;
+  }
 }
 ```

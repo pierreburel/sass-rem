@@ -16,6 +16,10 @@ $rem-px-only: false !default;
   @return if($test-list == $list, space, comma);
 }
 
+@mixin rem-baseline($zoom: 100%) {
+  font-size: $zoom / 16px * $rem-baseline;
+}
+
 @function rem-convert($to, $values...) {
   $result: ();
   $separator: rem-separator($values);
