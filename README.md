@@ -162,7 +162,7 @@ You can also change the baseline zoom by passing the desired zoom to the `rem-ba
 @import "rem";
 
 html {
-  @include rem-baseline; // Default to 100%
+  @include rem-baseline; // Default zoom to 100%
 
   @media (max-width: 400px) {
     @include rem-baseline(75%);
