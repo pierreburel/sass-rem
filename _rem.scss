@@ -49,8 +49,8 @@ $rem-px-only: false !default;
 
 @mixin rem($properties, $values...) {
   @if type-of($properties) == "map" {
-    @each $property, $values in $properties {
-      @include rem($property, $values...);
+    @each $property in map-keys($properties) {
+      @include rem($property, map-get($properties, $property));
     }
   } @else {
     @each $property in $properties {
