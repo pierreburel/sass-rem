@@ -36,7 +36,7 @@ $rem-px-only: false !default;
     }
   }
 
-  @return $result;
+  @return if(length($result) == 1, nth($result, 1), $result);
 }
 
 @function rem($values...) {
