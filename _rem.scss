@@ -23,14 +23,17 @@ $rem-px-only: false !default;
 @function rem-convert($to, $values...) {
   $result: ();
   $separator: rem-separator($values);
-
+  
   @each $value in $values {
     @if type-of($value) == "number" and unit($value) == "rem" and $to == "px" {
-      $result: append($result, $value / 1rem * $rem-baseline, $separator);
+      $result: append($result, $value / 1rem * $rem-baseline + 0px, $separator);
     } @else if type-of($value) == "number" and unit($value) == "px" and $to == "rem" {
-      $result: append($result, $value / ($rem-baseline / 1rem), $separator);
+      $result: append($result, $value / $rem-baseline + 0rem, $separator);
     } @else if type-of($value) == "list" {
-      $result: append($result, rem-convert($to, $value...), $separator);
+      $tmp-separator: list-separator($value);
+      $tmp: rem-convert($to, $value...);
+      $tmp: append($tmp, null, $tmp-separator);
+      $result: append($result, $tmp, $separator);
     } @else {
       $result: append($result, $value, $separator);
     }
