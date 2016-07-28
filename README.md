@@ -4,7 +4,7 @@ Sass mixin and function to use rem units with pixel fallback.
 
 Demo: [Sassmeister](http://sassmeister.com/gist/f75f0ffd0910a99eee77) / [Codepen](http://codepen.io/pierreburel/pen/ogGzgX)
 
-Compatibility: Sass 3.2+ (3.3+ for maps) and LibSass
+Compatibility: [Sass](https://github.com/sass/sass) 3.2+ (3.3+ for maps), [LibSass](https://github.com/sass/libsass) and [PHPSass](https://github.com/richthegeek/phpsass)
 
 See also: https://github.com/pierreburel/sass-em
 
