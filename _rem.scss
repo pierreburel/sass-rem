@@ -2,12 +2,16 @@ $rem-baseline: 10px !default;
 $rem-fallback: true !default;
 $rem-px-only: false !default;
 
-// list-separator polyfill by Hugo Giraudel (https://sass-compatibility.github.io/#list_separator_function)
-@function rem-separator($list) {
+@function rem-separator($list, $separator: false) {
+  @if $separator == "comma" or $separator == "space" {
+    @return append($list, null, $separator);
+  } 
+  
   @if function-exists("list-separator") == true {
     @return list-separator($list);
   }
 
+  // list-separator polyfill by Hugo Giraudel (https://sass-compatibility.github.io/#list_separator_function)
   $test-list: ();
   @each $item in $list {
     $test-list: append($test-list, $item, space);
@@ -30,10 +34,10 @@ $rem-px-only: false !default;
     } @else if type-of($value) == "number" and unit($value) == "px" and $to == "rem" {
       $result: append($result, $value / $rem-baseline + 0rem, $separator);
     } @else if type-of($value) == "list" {
-      $tmp-separator: list-separator($value);
-      $tmp: rem-convert($to, $value...);
-      $tmp: append($tmp, null, $tmp-separator);
-      $result: append($result, $tmp, $separator);
+      $value-separator: rem-separator($value);
+      $value: rem-convert($to, $value...);
+      $value: rem-separator($value, $value-separator);
+      $result: append($result, $value, $separator);
     } @else {
       $result: append($result, $value, $separator);
     }
