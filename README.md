@@ -1,10 +1,12 @@
 # Rem
 
-Sass mixin and function to use rem units with pixel fallback.  
+Sass function and mixin to use rem units with optional pixel fallback.  
+
+*Breaking change in 2.0*: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.  
 
 Demo: [Sassmeister](http://sassmeister.com/gist/f75f0ffd0910a99eee77) / [Codepen](http://codepen.io/pierreburel/pen/ogGzgX)
 
-Compatibility: [Sass](https://github.com/sass/sass) 3.2+ (3.3+ for maps), [LibSass](https://github.com/sass/libsass) and [PHPSass](https://github.com/richthegeek/phpsass)
+Compatibility: [Sass](https://github.com/sass/sass) 3.2+ (3.3+ for maps) and [LibSass](https://github.com/sass/libsass).  
 
 See also: https://github.com/pierreburel/sass-em
 
@@ -12,44 +14,66 @@ See also: https://github.com/pierreburel/sass-em
 
 ## Install
 
-Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Bower](http://bower.io/) or [npm](https://www.npmjs.com/):
+Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Yarn](https://yarnpkg.com/), [npm](https://www.npmjs.com/) or [Bower](http://bower.io/):
 
-### Bower
-
-```
-bower install sass-rem
-```
-
-### npm
-
-```
-npm install sass-rem
-```
+* `yarn add sass-rem`
+* `npm install sass-rem --save`
+* `bower install sass-rem --save`
 
 ---
 
 ## Usage
 
-Import `_rem.scss`, set the root font-size with `rem-baseline` mixin and use the `rem` mixin or function.
+Import `_rem.scss` and use the `rem` function.
 
 ### SCSS
 
 ```scss
 @import "rem";
 
-html {
-  @include rem-baseline;
+.demo {
+  font-size: rem(24px); // Simple
+  padding: rem(5px 10px); // Multiple values
+  border-bottom: rem(1px solid black); // Multiple mixed values
+  box-shadow: rem(0 0 2px #ccc, inset 0 0 5px #eee); // Comma-separated values
+  text-shadow: rem(1px 1px) #eee, rem(-1px) 0 #eee; // Alternate use
 }
+```
 
-h1 {
+### CSS
+
+```css
+.demo {
+  font-size: 1.5rem;
+  padding: 0.3125rem 0.625rem;
+  border-bottom: 0.0625rem solid black;
+  box-shadow: 0 0 0.125rem #ccc, inset 0 0 0.3125rem #eee;
+  text-shadow: 0.0625rem 0.0625rem #eee, -0.0625rem 0 #eee;
+}
+```
+
+---
+
+## Using pixel fallback
+
+You can enable pixel fallback by setting `$rem-fallback` to `true`, but you will have to use the mixin instead of the function.
+
+### SCSS
+
+```scss
+@import "rem";
+
+$rem-fallback: true;
+
+.demo {
   @include rem(font-size, 24px); // Simple
-  @include rem(border-bottom, 1px solid black); // Shorthand
-  @include rem(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Multiple values
-  text-shadow: rem(1px 1px #eee, -1px -1px #eee); // Function and multiple values, warning: no fallback possible with rem function
-  // Map support (Sass 3.3+)
+  @include rem(padding, 5px 10px); // Multiple values
+  @include rem(border-bottom, 1px solid black); // Multiple mixed values
+  @include rem(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Comma-separated values
+  // Multiple properties
   @include rem((
-    margin: 20px 1rem,
-    padding: 10px
+    margin: 10px 5px,
+    text-shadow: (1px 1px #eee, -1px -1px #eee) // Parentheses needed because of comma
   ));
 }
 ```
@@ -57,39 +81,19 @@ h1 {
 ### CSS
 
 ```css
-html {
-  font-size: 62.5%;
-}
-
-h1 {
+.demo {
   font-size: 24px;
-  font-size: 2.4rem;
+  font-size: 1.5rem;
+  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem;
   border-bottom: 1px solid black;
-  border-bottom: 0.1rem solid black;
+  border-bottom: 0.0625rem solid black;
   box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
-  box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
-  text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee; // No fallback
-  margin: 20px 10px;
-  margin: 2rem 1rem;
-  padding: 10px;
-  padding: 1rem;
-}
-```
-
----
-
-You can disable pixel fallback by setting `$rem-fallback` to `false`.
-
-### CSS
-
-```css
-h1 {
-  font-size: 2.4rem;
-  border-bottom: 0.1rem solid black;
-  box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
-  text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee;
-  margin: 2rem 1rem;
-  padding: 1rem;
+  box-shadow: 0 0 0.125rem #ccc, inset 0 0 0.3125rem #eee;
+  margin: 10px 5px;
+  margin: 0.625rem 0.3125rem;
+  text-shadow: 1px 1px #eee, -1px -1px #eee;
+  text-shadow: 0.0625rem 0.0625rem #eee, -0.0625rem -0.0625rem #eee;
 }
 ```
 
@@ -100,13 +104,13 @@ You can totally disable rem units by setting `$rem-px-only` to `true` (for a lt-
 ### CSS
 
 ```css
-h1 {
+.demo {
   font-size: 24px;
+  padding: 5px 10px;
   border-bottom: 1px solid black;
   box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
-  text-shadow: 1px 1px #eee, -1px -1px #eee; // Fallback works here
-  margin: 20px 10px;
-  padding: 10px;
+  margin: 10px;
+  text-shadow: 1px 1px #eee, -1px -1px #eee;
 }
 ```
 
@@ -114,26 +118,22 @@ h1 {
 
 ## Changing baseline
 
-By default, sass-rem uses a 10px baseline (root font size to 62.5%) for readability reasons (10px = 1rem).
-You can change this value using the `$rem-baseline` variable.
-The `rem-baseline` mixin will adjust the root font size and `rem` function and mixin will calculate rem values and px fallbacks automatically.
+By default, sass-rem now uses a 16px baseline, but you can change this value with `$rem-baseline` and by using the `rem-baseline` mixin on the html element to adjust the root font size. The `rem` function and mixin will calculate rem values accordingly.
+For example, you can set `$rem-baseline` to 10px to have a root font size of 62.5% and improve readability (10px = 1rem), which was the pre-2.0 behavior.
 
 ### SCSS
 
 ```scss
 @import "rem";
 
-$rem-baseline: 16px;
+$rem-baseline: 10px;
 
 html {
-  @include rem-baseline; // Optional with 16px baseline
+  @include rem-baseline;
 }
 
-h1 {
-  @include rem((
-    font-size: 24px,
-    margin: 10px 1rem
-  ));
+.demo {
+  font-size: rem(24px);
 }
 ```
 
@@ -141,14 +141,11 @@ h1 {
 
 ```css
 html {
-  font-size: 100%;
+  font-size: 62.5%;
 }
 
-h1 {
-  font-size: 24px;
-  font-size: 1.5rem;
-  margin: 10px 16px;
-  margin: 0.625rem 1rem;
+.demo {
+  font-size: 2.4rem;
 }
 ```
 
@@ -160,6 +157,8 @@ You can also change the baseline zoom by passing the desired zoom to the `rem-ba
 
 ```scss
 @import "rem";
+
+$rem-baseline: 10px;
 
 html {
   @include rem-baseline; // Default zoom to 100%

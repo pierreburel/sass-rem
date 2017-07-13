@@ -1,5 +1,5 @@
-$rem-baseline: 10px !default;
-$rem-fallback: true !default;
+$rem-baseline: 16px !default;
+$rem-fallback: false !default;
 $rem-px-only: false !default;
 
 @function rem-separator($list, $separator: false) {

@@ -1,7 +1,7 @@
 {
   "name": "sass-rem",
-  "version": "1.2.4",
-  "description": "Sass mixin and function to use rem units with pixel fallback.",
+  "version": "2.0.0",
+  "description": "Sass function and mixin to use rem units with optional pixel fallback.",
   "keywords": [
     "sass",
     "rem",
