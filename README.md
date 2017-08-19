@@ -12,7 +12,7 @@ See also: https://github.com/pierreburel/sass-em
 
 ---
 
-## Install
+## Installation
 
 Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Yarn](https://yarnpkg.com/), [npm](https://www.npmjs.com/) or [Bower](http://bower.io/):
 
@@ -20,17 +20,21 @@ Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/ma
 * `npm install sass-rem --save`
 * `bower install sass-rem --save`
 
+Then, import `_rem.scss` depending of your configuration and file structure.
+
+<details><summary>Examples</summary>
+
+* `@import "~sass-rem";` with [sass-loader](https://github.com/webpack-contrib/sass-loader) or [node-sass-package-importer](https://github.com/maoberlehner/node-sass-package-importer) **(recommended)**
+* `@import "sass-rem/rem";` when using node-sass’ `includePaths` to resolve `node_modules` or `bower_components` dirs
+* `@import "../../node_modules/sass-rem/rem";` if none of the above and working in something like `./src/scss/main.scss`
+* `@import "../../bower_components/sass-rem/rem";` if using Bower
+* `@import "lib/rem";` if manually copied `_rem.scss` in a `lib` folder, for example
+
+</details>
+
 ---
 
 ## Usage
-
-Import `_rem.scss` depending of your configuration and file structure : 
-
-* `@import "~sass-rem";` with [sass-loader](https://github.com/webpack-contrib/sass-loader) or [node-sass-package-importer](https://github.com/maoberlehner/node-sass-package-importer) **(recommended)** ;
-* `@import "sass-rem/rem";` when using node-sass’ `includePaths` to resolve `node_modules` or `bower_components` dirs ;
-* `@import "../../node_modules/sass-rem/rem";` if none of the above and working in something like `./src/scss/main.scss` ;
-* `@import "../../bower_components/sass-rem/rem";` if using Bower ;
-* `@import "lib/rem";` if manually copied `_rem.scss` in a `lib` folder, for example.
 
 ### SCSS
 
