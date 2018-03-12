@@ -2,7 +2,7 @@
 
 Sass function and mixin to use rem units with optional pixel fallback.  
 
-*Breaking change in 2.0*: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.  
+**Breaking change in 2.0**: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.  
 
 Demo: [Sassmeister](http://sassmeister.com/gist/f75f0ffd0910a99eee77) / [Codepen](http://codepen.io/pierreburel/pen/ogGzgX)
 
@@ -12,7 +12,7 @@ See also: https://github.com/pierreburel/sass-em
 
 ---
 
-## Install
+## Installation
 
 Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Yarn](https://yarnpkg.com/), [npm](https://www.npmjs.com/) or [Bower](http://bower.io/):
 
@@ -20,17 +20,25 @@ Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/ma
 * `npm install sass-rem --save`
 * `bower install sass-rem --save`
 
+Then, import `_rem.scss` depending of your configuration and file structure.
+
+<details><summary>Examples</summary>
+
+* `@import "~sass-rem";` with [sass-loader](https://github.com/webpack-contrib/sass-loader) or [node-sass-package-importer](https://github.com/maoberlehner/node-sass-package-importer) **(recommended)**
+* `@import "sass-rem/rem";` when using node-sass’ `includePaths` to resolve `node_modules` or `bower_components` dirs
+* `@import "../../node_modules/sass-rem/rem";` if none of the above and working in something like `./src/scss/main.scss`
+* `@import "../../bower_components/sass-rem/rem";` if using Bower
+* `@import "lib/rem";` if manually copied `_rem.scss` in a `lib` folder, for example
+
+</details>
+
 ---
 
 ## Usage
 
-Import `_rem.scss` and use the `rem` function.
-
 ### SCSS
 
 ```scss
-@import "rem";
-
 .demo {
   font-size: rem(24px); // Simple
   padding: rem(5px 10px); // Multiple values
@@ -61,8 +69,6 @@ You can enable pixel fallback by setting `$rem-fallback` to `true`, but you will
 ### SCSS
 
 ```scss
-@import "rem";
-
 $rem-fallback: true;
 
 .demo {
@@ -124,8 +130,6 @@ For example, you can set `$rem-baseline` to 10px to have a root font size of 62.
 ### SCSS
 
 ```scss
-@import "rem";
-
 $rem-baseline: 10px;
 
 html {
@@ -156,8 +160,6 @@ You can also change the baseline zoom by passing the desired zoom to the `rem-ba
 ### SCSS
 
 ```scss
-@import "rem";
-
 $rem-baseline: 10px;
 
 html {
