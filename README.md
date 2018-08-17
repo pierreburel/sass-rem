@@ -8,6 +8,8 @@ Demo: [Sassmeister](http://sassmeister.com/gist/f75f0ffd0910a99eee77) / [Codepen
 
 Compatibility: [Sass](https://github.com/sass/sass) 3.2+ (3.3+ for maps) and [LibSass](https://github.com/sass/libsass).  
 
+PostCSS version: https://github.com/pierreburel/postcss-rem  
+
 See also: https://github.com/pierreburel/sass-em
 
 ---
