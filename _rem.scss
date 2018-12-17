@@ -60,12 +60,26 @@ $rem-px-only: false !default;
       @include rem($property, map-get($properties, $property));
     }
   } @else {
-    @each $property in $properties {
-      @if $rem-fallback or $rem-px-only {
-        #{$property}: rem-convert(px, $values...);
+    $convert: false;
+    @each $valueList in $values {
+      @each $value in $valueList {
+        @if type-of($value) == "number" and index((rem, px), unit($value)) {
+          $convert: true;
+        }
       }
-      @if not $rem-px-only {
-        #{$property}: rem-convert(rem, $values...);
+    }
+    @each $property in $properties {
+      @if $convert == true {
+        @if $rem-fallback or $rem-px-only {
+          #{$property}: rem-convert(px, $values...);
+        }
+        @if not $rem-px-only {
+          #{$property}: rem-convert(rem, $values...);
+        }
+      } @else if $rem-px-only {
+        #{$property}: rem-convert(px, $values...);
+      } @else {
+        #{$property}: $values;
       }
     }
   }

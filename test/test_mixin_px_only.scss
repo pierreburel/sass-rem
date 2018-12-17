@@ -1,0 +1,79 @@
+@import "../node_modules/sass-true/sass/true";
+@import "../rem";
+
+$rem-px-only: true;
+
+@include test-module("@mixin rem") {
+
+  @include test("with px-only") {
+
+    @include assert() {
+      @include output {
+        @include rem(width, 16px);
+      }
+      @include expect {
+        width: 16px;
+      }
+    }
+
+    @include assert() {
+      @include output {
+        @include rem(width, 1rem);
+      }
+      @include expect {
+        width: 16px;
+      }
+    }
+
+    @include assert() {
+      @include output {
+        @include rem(width, 0);
+      }
+      @include expect {
+        width: 0;
+      }
+    }
+
+    @include assert() {
+      @include output {
+        @include rem(width, 1em);
+      }
+      @include expect {
+        width: 1em;
+      }
+    }
+
+    @include assert() {
+      @include output {
+        @include rem(padding, 1em 7% 16px 2rem);
+      }
+      @include expect {
+        padding: 1em 7% 16px 32px;
+      }
+    }
+
+    @include assert() {
+      @include output {
+        @include rem((top: 0, right: 16px, bottom: 2rem, left: 7%));
+      }
+      @include expect {
+        top: 0;
+        right: 16px;
+        bottom: 32px;
+        left: 7%;
+      }
+    }
+
+    @include assert() {
+      @include output {
+        @include rem((width, height), 16px);
+      }
+      @include expect {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+  }
+
+}
