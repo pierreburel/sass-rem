@@ -1,14 +1,14 @@
 # Rem
 
-Sass function and mixin to use rem units with optional pixel fallback.  
+Sass function and mixin to use rem units with optional pixel fallback.
 
-**Breaking change in 2.0**: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.  
+**Breaking change in 3.0**: now using [Sass Modules](https://sass-lang.com/blog/the-module-system-is-launched), using `@use` and `rem` is renamed to `rem.convert`. You could still use `@import` with no changes (see usage below), but **if you need LibSass and Ruby Sass support (both deprecated), you should stay on 2.0** (which works fine) or use the [PostCSS](https://github.com/pierreburel/postcss-rem) version.
 
-Demo: [Sassmeister](http://sassmeister.com/gist/f75f0ffd0910a99eee77) / [Codepen](http://codepen.io/pierreburel/pen/ogGzgX)
+**Breaking change in 2.0**: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.
 
-Compatibility: [Sass](https://github.com/sass/sass) 3.2+ (3.3+ for maps) and [LibSass](https://github.com/sass/libsass).  
+Compatibility: [Dart Sass](https://sass-lang.com/dart-sass) only.
 
-PostCSS version: https://github.com/pierreburel/postcss-rem  
+PostCSS version: https://github.com/pierreburel/postcss-rem
 
 See also: https://github.com/pierreburel/sass-em
 
@@ -16,41 +16,36 @@ See also: https://github.com/pierreburel/sass-em
 
 ## Installation
 
-Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Yarn](https://yarnpkg.com/), [npm](https://www.npmjs.com/) or [Bower](http://bower.io/):
+Install with [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/):
 
 * `yarn add sass-rem`
-* `npm install sass-rem --save`
-* `bower install sass-rem --save`
-
-Then, import `_rem.scss` depending of your configuration and file structure.
-
-<details><summary>Examples</summary>
-
-* `@import "~sass-rem";` with [sass-loader](https://github.com/webpack-contrib/sass-loader) or [node-sass-package-importer](https://github.com/maoberlehner/node-sass-package-importer) **(recommended)**
-* `@import "sass-rem/rem";` when using node-sass’ `includePaths` to resolve `node_modules` or `bower_components` dirs
-* `@import "../../node_modules/sass-rem/rem";` if none of the above and working in something like `./src/scss/main.scss`
-* `@import "../../bower_components/sass-rem/rem";` if using Bower
-* `@import "lib/rem";` if manually copied `_rem.scss` in a `lib` folder, for example
-
-</details>
+* `npm install sass-rem`
 
 ---
 
 ## Usage
 
-### SCSS
+Import in your project depending of your setup:
 
 ```scss
+@use "rem";
+// or @use "~sass-rem" as rem;
+// or @use '../node_modules/sass-rem' as rem;
+
 .demo {
-  font-size: rem(24px); // Simple
-  padding: rem(5px 10px); // Multiple values
-  border-bottom: rem(1px solid black); // Multiple mixed values
-  box-shadow: rem(0 0 2px #ccc, inset 0 0 5px #eee); // Comma-separated values
-  text-shadow: rem(1px 1px) #eee, rem(-1px) 0 #eee; // Alternate use
+  font-size: rem.convert(24px); // Simple
+  padding: rem.convert(5px 10px); // Multiple values
+  border-bottom: rem.convert(1px solid black); // Multiple mixed values
+  box-shadow: rem.convert(0 0 2px #ccc, inset 0 0 5px #eee); // Comma-separated values
+  // Multiple properties
+  @include rem.convert((
+    margin: 10px 5px,
+    text-shadow: (1px 1px #eee, -1px -1px #eee) // Parentheses needed because of comma
+  ));
 }
 ```
 
-### CSS
+Will output:
 
 ```css
 .demo {
@@ -58,7 +53,44 @@ Then, import `_rem.scss` depending of your configuration and file structure.
   padding: 0.3125rem 0.625rem;
   border-bottom: 0.0625rem solid black;
   box-shadow: 0 0 0.125rem #ccc, inset 0 0 0.3125rem #eee;
-  text-shadow: 0.0625rem 0.0625rem #eee, -0.0625rem 0 #eee;
+  margin: 0.625rem 0.3125rem;
+  text-shadow: 0.0625rem 0.0625rem #eee, -0.0625rem -0.0625rem #eee;
+}
+```
+
+## *But it was shorter before!*
+
+It was.
+
+But You can change the namespace to something shorter and use `rem` function and mixin instead of `convert`:
+
+```scss
+@use "rem" as to; // Because why not?
+
+.demo {
+  font-size: to.rem(24px);
+}
+```
+
+Or you can even load the library globally (but beware of conflicts, avoided by the idea of modules):
+
+```scss
+@use "rem" as *;
+
+.demo {
+  font-size: rem(24px);
+}
+```
+
+And if you just don't want to use Sass Modules, you can still use `@import` with `rem` function, mixin and namespaced `$rem-*` variables as before:
+
+```scss
+@import "sass-rem";
+
+$rem-baseline: 10px;
+
+.demo {
+  font-size: rem(24px);
 }
 ```
 
@@ -66,27 +98,27 @@ Then, import `_rem.scss` depending of your configuration and file structure.
 
 ## Using pixel fallback
 
-You can enable pixel fallback by setting `$rem-fallback` to `true`, but you will have to use the mixin instead of the function.
-
-### SCSS
+You can enable pixel fallback by setting `$fallback` to `true`, but you will have to use the mixin instead of the function. The mixin accepts a map to convert multiple properties at once too:
 
 ```scss
-$rem-fallback: true;
+@use "rem" with (
+  $fallback: true
+);
 
 .demo {
-  @include rem(font-size, 24px); // Simple
-  @include rem(padding, 5px 10px); // Multiple values
-  @include rem(border-bottom, 1px solid black); // Multiple mixed values
-  @include rem(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Comma-separated values
+  @include rem.convert(font-size, 24px); // Simple
+  @include rem.convert(padding, 5px 10px); // Multiple values
+  @include rem.convert(border-bottom, 1px solid black); // Multiple mixed values
+  @include rem.convert(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Comma-separated values
   // Multiple properties
-  @include rem((
+  @include rem.convert((
     margin: 10px 5px,
     text-shadow: (1px 1px #eee, -1px -1px #eee) // Parentheses needed because of comma
   ));
 }
 ```
 
-### CSS
+Will output:
 
 ```css
 .demo {
@@ -107,9 +139,7 @@ $rem-fallback: true;
 
 ---
 
-You can totally disable rem units by setting `$rem-px-only` to `true` (for a lt-ie9 only stylesheet for example).
-
-### CSS
+You can totally disable rem units by setting `$px-only` to `true` (for a lt-ie9 only stylesheet for example):
 
 ```css
 .demo {
@@ -126,24 +156,24 @@ You can totally disable rem units by setting `$rem-px-only` to `true` (for a lt-
 
 ## Changing baseline
 
-By default, sass-rem now uses a 16px baseline, but you can change this value with `$rem-baseline` and by using the `rem-baseline` mixin on the html element to adjust the root font size. The `rem` function and mixin will calculate rem values accordingly.
-For example, you can set `$rem-baseline` to 10px to have a root font size of 62.5% and improve readability (10px = 1rem), which was the pre-2.0 behavior.
-
-### SCSS
+By default, sass-rem now uses a 16px baseline, but you can change this value with `$baseline` and by using the `baseline` mixin on the html element to adjust the root font size. The `rem` function and mixin will calculate rem values accordingly.
+For example, you can set `$baseline` to 10px to have a root font size of 62.5% and improve readability (10px = 1rem), which was the pre-2.0 behavior:
 
 ```scss
-$rem-baseline: 10px;
+@use "rem" with (
+  $baseline: 10px
+);
 
 html {
-  @include rem-baseline;
+  @include rem.baseline;
 }
 
 .demo {
-  font-size: rem(24px);
+  font-size: rem.convert(24px);
 }
 ```
 
-### CSS
+Will output:
 
 ```css
 html {
@@ -157,27 +187,27 @@ html {
 
 ---
 
-You can also change the baseline zoom by passing the desired zoom to the `rem-baseline` mixin which will calculate it depending of `$rem-baseline`. Useful for creating responsive typography depending on viewport, especially with a different baseline than 16px.
-
-### SCSS
+You can also change the baseline zoom by passing the desired zoom to the `baseline` mixin which will calculate it depending of `$baseline`. Useful for creating responsive typography depending on viewport, especially with a different baseline than 16px:
 
 ```scss
-$rem-baseline: 10px;
+@use "rem" with (
+  $baseline: 10px
+);
 
 html {
-  @include rem-baseline; // Default zoom to 100%
+  @include rem.baseline; // Default zoom to 100%
 
   @media (max-width: 400px) {
-    @include rem-baseline(75%);
+    @include rem.baseline(75%);
   }
 
   @media (min-width: 800px) {
-    @include rem-baseline(125%);
+    @include rem.baseline(125%);
   }
 }
 ```
 
-### CSS
+Will output:
 
 ```css
 html {

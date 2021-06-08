@@ -1,0 +1,9 @@
+.npmignore
+.gitignore
+
+node_modules/
+npm-debug.log
+yarn.lock
+
+*.test.js
+.travis.yml
