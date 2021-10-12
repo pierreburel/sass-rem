@@ -1,4 +1,4 @@
-# Rem
+# Sass Rem [![Build Status](https://app.travis-ci.com/pierreburel/sass-rem.svg?branch=master)](https://app.travis-ci.com/pierreburel/sass-rem)
 
 Sass function and mixin to use rem units with optional pixel fallback.
 
@@ -30,7 +30,7 @@ Import in your project depending of your setup:
 ```scss
 @use "rem";
 // or @use "~sass-rem" as rem;
-// or @use '../node_modules/sass-rem' as rem;
+// or @use "../node_modules/sass-rem" as rem;
 
 .demo {
   font-size: rem.convert(24px); // Simple
@@ -86,6 +86,8 @@ And if you just don't want to use Sass Modules, you can still use `@import` with
 
 ```scss
 @import "sass-rem";
+// or @import "~sass-rem";
+// or @import "../node_modules/sass-rem";
 
 $rem-baseline: 10px;
 
