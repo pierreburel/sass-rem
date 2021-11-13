@@ -1,4 +1,4 @@
-# Sass Rem [![Build Status](https://app.travis-ci.com/pierreburel/sass-rem.svg?branch=master)](https://app.travis-ci.com/pierreburel/sass-rem)
+# sass-rem [![Node.js CI](https://github.com/pierreburel/sass-rem/actions/workflows/node.js.yml/badge.svg)](https://github.com/pierreburel/sass-rem/actions/workflows/node.js.yml)
 
 Sass function and mixin to use rem units with optional pixel fallback.
 
