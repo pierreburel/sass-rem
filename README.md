@@ -2,7 +2,7 @@
 
 Sass function and mixin to use rem units with optional pixel fallback.
 
-**Breaking change in 3.0**: now using [Sass Modules](https://sass-lang.com/blog/the-module-system-is-launched), using `@use` and `rem` is renamed to `rem.convert`. You could still use `@import` with no changes (see usage below), but **if you need LibSass (node-sass) and Ruby Sass support (both deprecated), you should stay on 2.0** (which works fine) or use the [PostCSS](https://github.com/pierreburel/postcss-rem) version.
+**Breaking change in 3.0**: now using [Sass Modules](https://sass-lang.com/blog/the-module-system-is-launched), using `@use` and `rem` is renamed to `rem.convert`. You could still use `@import` with no changes (see usage below), but **if you need LibSass/node-sass and Ruby Sass support (both deprecated), you should stay on 2.0** (which works fine) or use the [PostCSS](https://github.com/pierreburel/postcss-rem) version.
 
 **Breaking change in 2.0**: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.
 
