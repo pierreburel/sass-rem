@@ -6,7 +6,7 @@ Sass function and mixin to use rem units with optional pixel fallback.
 
 **Breaking change in 2.0**: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.
 
-Compatibility: [Dart Sass](https://sass-lang.com/dart-sass) only (use v2.0 fir LibSass/node-sass and Ruby Sass).
+Compatibility: [Dart Sass](https://sass-lang.com/dart-sass) only (**use v2.0 for LibSass/node-sass and Ruby Sass**).
 
 PostCSS version: https://github.com/pierreburel/postcss-rem
 
