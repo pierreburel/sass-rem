@@ -20,8 +20,8 @@
     "url": "git://github.com/pierreburel/sass-rem.git"
   },
   "devDependencies": {
-    "jest": "^27.4.7",
-    "sass": "^1.47.0"
+    "jest": "^28.1.0",
+    "sass": "^1.52.1"
   },
   "scripts": {
     "test": "jest"
