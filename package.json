@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "jest": "^28.1.0",
-    "sass": "^1.52.1"
+    "sass": "^1.58.3"
   },
   "scripts": {
     "test": "jest"
