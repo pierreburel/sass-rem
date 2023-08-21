@@ -23,8 +23,8 @@ $px-only: false !default;
   @each $value in $values {
     @if meta.type-of($value) == "number" and math.unit($value) == "rem" and $to == "px" {
       $result: list.append($result, _divide($value, 1rem) * $baseline, $separator);
-    } @else if meta.type-of($value) == "number" and math.unit($value) == "px" and $to == "rem" {
-      $result: list.append($result, _divide($value, $baseline) * 1rem, $separator);
+    } @else if meta.type-of($value) == "number" and (math.unit($value) == "px" or math.unit($value) == '') and $value != 0 and $to == "rem" {
+      $result: list.append($result, _divide(if(math.unit($value) == 'px', $value, $value * 1px), $baseline) * 1rem, $separator);
     } @else if meta.type-of($value) == "list" {
       $result: list.append($result, _convert($to, $value...), $separator);
     } @else {

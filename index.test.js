@@ -15,14 +15,19 @@ async function run(input, output, config = `@use "." as rem;`) {
   expect(a).toEqual(b);
 };
 
+it('Unitless', () => run(
+  '.simple { font-size: rem.convert(24); }',
+  '.simple { font-size: 1.5rem; }'
+));
+
 it('Simple', () => run(
   '.simple { font-size: rem.convert(24px); }',
   '.simple { font-size: 1.5rem; }'
 ));
 
 it('Multiple values', () => run(
-  '.multiple { padding: rem.convert(5px 10px); }',
-  '.multiple { padding: 0.3125rem 0.625rem; }'
+  '.multiple { padding: rem.convert(5px 10px 0 24); }',
+  '.multiple { padding: 0.3125rem 0.625rem 0 1.5rem; }'
 ));
 
 it('Multiple mixed values', () => run(
