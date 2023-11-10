@@ -1,11 +1,3 @@
 @use "rem";
 
-@forward "rem" as rem-* hide rem-rem;
-
-@function rem($values...) {
-  @return rem.convert($values...);
-}
-
-@mixin rem($properties, $values...) {
-  @include rem.convert($properties, $values...);
-}
+@forward "rem" as rem-* hide rem-rem, rem-rem-convert;

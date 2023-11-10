@@ -76,13 +76,13 @@ it('Changing namespace', () => run(
 ));
 
 it('Global namespace', () => run(
-  '.global-namespace { font-size: rem(24px); }',
+  '.global-namespace { font-size: rem-convert(24px); }',
   '.global-namespace { font-size: 1.5rem; }',
   '@use "." as *;',
 ));
 
 it('Legacy import', () => run(
-  'html { @include rem-baseline; } .legacy-import { @include rem(font-size, 24px); margin: rem(10px 1.5rem); }',
+  'html { @include rem-baseline; } .legacy-import { @include rem-convert(font-size, 24px); margin: rem-convert(10px 1.5rem); }',
   'html { font-size: 62.5%; } .legacy-import { font-size: 24px; font-size: 2.4rem; margin: 1rem 1.5rem; }',
   '@import "."; $rem-baseline: 10px; $rem-fallback: true;',
 ));

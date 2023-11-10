@@ -2,15 +2,13 @@
 
 Sass function and mixin to use rem units with optional pixel fallback.
 
-**Breaking change in 3.0**: now using [Sass Modules](https://sass-lang.com/blog/the-module-system-is-launched), using `@use` and `rem` is renamed to `rem.convert`. You could still use `@import` with no changes (see usage below), but **if you need LibSass/node-sass and Ruby Sass support (both deprecated), you should stay on 2.0** (which works fine) or use the [PostCSS](https://github.com/pierreburel/postcss-rem) version.
+## Breaking changes
 
-**Breaking change in 2.0**: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.
+- **4.0**: changed default function name when imported globally (`@use "rem" as *;` or `@import "sass-rem";`) to `rem-convert`, as [CSS now use `rem()` for calculating the remainder](https://developer.mozilla.org/en-US/docs/Web/CSS/rem). It shouldn't change anything if you used Sass Modules introduced in 3.0 (`rem.convert`).
 
-Compatibility: [Dart Sass](https://sass-lang.com/dart-sass) only (**use v2.0 for LibSass/node-sass and Ruby Sass**).
+- **3.0**: now using [Sass Modules](https://sass-lang.com/blog/the-module-system-is-launched), using `@use` and `rem` is renamed to `rem.convert`. You could still use `@import` with no changes (see usage below), but **if you need LibSass/node-sass and Ruby Sass support (both deprecated), you should stay on 2.0** (which works fine) or use the [PostCSS](https://github.com/pierreburel/postcss-rem) version.
 
-PostCSS version: https://github.com/pierreburel/postcss-rem
-
-See also: https://github.com/pierreburel/sass-em
+- **2.0**: `$rem-fallback` is now set to `false` ([see support](http://caniuse.com/#feat=rem)) and `$rem-baseline` to `16px` by default.
 
 ---
 
@@ -58,11 +56,11 @@ Will output:
 }
 ```
 
-## *But it was shorter before!*
+---
 
-It was.
+## Namespace
 
-But You can change the namespace to something shorter and use `rem` function and mixin instead of `convert`:
+You can change the namespace when importing and use `rem` function and mixin instead of `convert`:
 
 ```scss
 @use "rem" as to; // Because why not?
@@ -78,21 +76,7 @@ Or you can even load the library globally (but beware of conflicts, avoided by t
 @use "rem" as *;
 
 .demo {
-  font-size: rem(24px);
-}
-```
-
-And if you just don't want to use Sass Modules, you can still use `@import` with `rem` function, mixin and namespaced `$rem-*` variables as before:
-
-```scss
-@import "sass-rem";
-// or @import "~sass-rem";
-// or @import "../node_modules/sass-rem";
-
-$rem-baseline: 10px;
-
-.demo {
-  font-size: rem(24px);
+  font-size: rem-convert(24px);
 }
 ```
 
@@ -228,3 +212,27 @@ html {
   }
 }
 ```
+
+## Legacy import
+
+If you don't want to use Sass Modules, you can still use `@import` with `rem-convert` function, mixin and namespaced `$rem-*` variables:
+
+```scss
+@import "sass-rem";
+// or @import "~sass-rem";
+// or @import "../node_modules/sass-rem";
+
+$rem-baseline: 10px;
+
+.demo {
+  font-size: rem-convert(24px);
+}
+```
+
+---
+
+## See also
+
+- PostCSS version: https://github.com/pierreburel/postcss-rem
+- JavaScript version: https://github.com/pierreburel/startijenn-rem
+- `sass-em` https://github.com/pierreburel/sass-em

@@ -60,6 +60,11 @@ $px-only: false !default;
   }
 }
 
+@mixin baseline($zoom: 100%) {
+  font-size: _divide($zoom, 16px) * $baseline;
+}
+
+// Proxy when used with a different namespace
 @function rem($values...) {
   @return convert($values...);
 }
@@ -68,6 +73,11 @@ $px-only: false !default;
   @include convert($properties, $values...);
 }
 
-@mixin baseline($zoom: 100%) {
-  font-size: _divide($zoom, 16px) * $baseline;
+// Proxy when imported globally
+@function rem-convert($values...) {
+  @return convert($values...);
+}
+
+@mixin rem-convert($properties, $values...) {
+  @include convert($properties, $values...);
 }
